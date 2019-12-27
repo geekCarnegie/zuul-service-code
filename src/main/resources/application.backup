@@ -1,0 +1,75 @@
+# 项目相关配置
+zuul-service:
+  # 名称
+  name: Zuul Service网关服务
+  # 版本
+  version: 1.0.0
+  # 作者
+  author: GeekTech
+  # 单位
+  unit: GeekTech
+
+# 注册服务
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin:geektech@eureka-server:8761/eureka
+
+# 服务
+server:
+  # 端口号
+  port: 80
+
+spring:
+  # Redis 配置
+  redis:
+    # 主机
+    host: redis
+    # 端口
+    port: 6379
+    # Jedis连接池
+    jedis:
+      # 最大连接数
+      max-active: 100
+      # 最大空闲连接
+      max-idle: 100
+      # 最小空闲连接
+      min-idle: 10
+      # 最大阻塞等待时间
+      max-wait: 1000ms
+  # 消息队列
+  rabbitmq:
+    # 主机
+    host: rabbitmq
+    # 端口
+    port: 5672
+    # 用户名
+    username: admin
+    # 密码
+    password: geektech
+
+# Zuul 配置
+zuul:
+  # RateLimit 配置
+  ratelimit:
+    # 开启限流
+    enabled: true
+    # 限流方式
+    repository: REDIS
+    # 默认限流策略
+    default-policy-list:
+      - limit: 10
+      quota: 1000
+      refresh-interval: 60
+      type:
+        - user
+        - origin
+        - url
+        - http_method
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露所有端点
+        include: "*"

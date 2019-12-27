@@ -1,0 +1,27 @@
+spring:
+  # 应用配置
+  application:
+    # 应用名称
+    name: zuul-service
+  # Spring Cloud配置
+  cloud:
+    # 配置中心
+    config:
+      # 配置中心地址
+      uri: http://admin:geektech@config-server:8769
+      # 分支
+      label: master
+      # 环境配置
+      profile: dev
+      # 允许快速失败
+      fail-fast: true
+      # 重试机制
+      retry:
+        # 初始间隔时间（毫秒）
+        initial-interval: 5000
+        # 最大尝试次数
+        max-attempts: 4
+        # 最大间隔时间（毫秒）
+        max-interval: 30000
+        # 倍数
+        multiplier: 2
